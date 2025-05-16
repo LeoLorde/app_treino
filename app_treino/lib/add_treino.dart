@@ -11,12 +11,6 @@ class PaginaAddTreino extends StatefulWidget {
 }
 
 class _PaginaAddTreinoState extends State<PaginaAddTreino> {
-  final TextEditingController _controllersegunda = TextEditingController();
-  final TextEditingController _controllerterca = TextEditingController();
-  final TextEditingController _controllerquarta = TextEditingController();
-  final TextEditingController _controllerquinta = TextEditingController();
-  final TextEditingController _controllersexta = TextEditingController();
-
   Map<String, bool> exerciciosSeg = {
     'Perna': false,
     'Peito': false,
@@ -492,18 +486,11 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  if (_controllersegunda.text != "" &&
-                      _controllerterca.text != "" &&
-                      _controllerquarta.text != "" &&
-                      _controllerquinta.text != "" &&
-                      _controllersexta.text != "") {
-                    Treino t = Treino(
-                      _controllersegunda.text,
-                      _controllerterca.text,
-                      _controllerquarta.text,
-                      _controllerquinta.text,
-                      _controllersexta.text,
-                    );
+                  if (exerciciosQua == false &&
+                      exerciciosTer == false &&
+                      exerciciosQua == false &&
+                      exerciciosQui == false &&
+                      exerciciosSex == false) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Treino salvo com sucesso!'),
@@ -511,7 +498,7 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
                         duration: Duration(seconds: 2),
                       ),
                     );
-                    Navigator.pop(context, t);
+                    Navigator.pop(context);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -526,11 +513,13 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  _controllersegunda.text = "";
-                  _controllerterca.text = "";
-                  _controllerquarta.text = "";
-                  _controllerquinta.text = "";
-                  _controllersexta.text = "";
+                  setState(() {
+                    exerciciosSeg.updateAll((key, value) => false);
+                    exerciciosTer.updateAll((key, value) => false);
+                    exerciciosQua.updateAll((key, value) => false);
+                    exerciciosQui.updateAll((key, value) => false);
+                    exerciciosSex.updateAll((key, value) => false);
+                  });
                 },
                 child: Text("Limpar", style: TextStyle(color: Colors.black)),
               ),
@@ -540,14 +529,4 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
       ),
     );
   }
-}
-
-class Treino {
-  String segunda;
-  String terca;
-  String quarta;
-  String quinta;
-  String sexta;
-
-  Treino(this.segunda, this.terca, this.quarta, this.quinta, this.sexta);
 }
