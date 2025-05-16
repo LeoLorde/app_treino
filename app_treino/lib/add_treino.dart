@@ -17,6 +17,37 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
   final TextEditingController _controllerquinta = TextEditingController();
   final TextEditingController _controllersexta = TextEditingController();
 
+  Map<String, bool> exerciciosSeg = {
+    'Perna': false,
+    'Peito': false,
+    'Cardio': false,
+    'Costas': false,
+  };
+  Map<String, bool> exerciciosTer = {
+    'Perna': false,
+    'Peito': false,
+    'Cardio': false,
+    'Costas': false,
+  };
+  Map<String, bool> exerciciosQua = {
+    'Perna': false,
+    'Peito': false,
+    'Cardio': false,
+    'Costas': false,
+  };
+  Map<String, bool> exerciciosQui = {
+    'Perna': false,
+    'Peito': false,
+    'Cardio': false,
+    'Costas': false,
+  };
+  Map<String, bool> exerciciosSex = {
+    'Perna': false,
+    'Peito': false,
+    'Cardio': false,
+    'Costas': false,
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,140 +57,435 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
       ),
       body: ListView(
         children: [
-          Container(
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Segunda-feira',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    TextField(
-                      controller: _controllersegunda,
-                      decoration: InputDecoration(
-                        hintText: "Digite os exercícios...",
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+          ExpansionTile(
+            title: Text(
+              'Segunda-feira',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosSeg['Perna'] = !exerciciosSeg['Perna']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosSeg['Perna']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Perna",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosSeg['Peito'] = !exerciciosSeg['Peito']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosSeg['Peito']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Peito",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosSeg['Cardio'] = !exerciciosSeg['Cardio']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosSeg['Cardio']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Cardio",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosSeg['Costas'] = !exerciciosSeg['Costas']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosSeg['Costas']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Costas",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          Container(
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Terça-feira',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    TextField(
-                      controller: _controllerterca,
-                      decoration: InputDecoration(
-                        hintText: "Digite os exercícios...",
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+          ExpansionTile(
+            title: Text(
+              'Terça-feira',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosTer['Perna'] = !exerciciosTer['Perna']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosTer['Perna']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Perna",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosTer['Peito'] = !exerciciosTer['Peito']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosTer['Peito']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Peito",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosTer['Cardio'] = !exerciciosTer['Cardio']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosTer['Cardio']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Cardio",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosTer['Costas'] = !exerciciosTer['Costas']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosTer['Costas']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Costas",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          Container(
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Quarta-feira',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    TextField(
-                      controller: _controllerquarta,
-                      decoration: InputDecoration(
-                        hintText: "Digite os exercícios...",
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+          ExpansionTile(
+            title: Text(
+              'Quarta-feira',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosQua['Perna'] = !exerciciosQua['Perna']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosQua['Perna']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Perna",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosQua['Peito'] = !exerciciosQua['Peito']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosQua['Peito']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Peito",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosQua['Cardio'] = !exerciciosQua['Cardio']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosQua['Cardio']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Cardio",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosQua['Costas'] = !exerciciosQua['Costas']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosQua['Costas']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Costas",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          Container(
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Quinta-feira',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    TextField(
-                      controller: _controllerquinta,
-                      decoration: InputDecoration(
-                        hintText: "Digite os exercícios...",
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+          ExpansionTile(
+            title: Text(
+              'Quinta-feira',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosQui['Perna'] = !exerciciosQui['Perna']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosQui['Perna']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Perna",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosQui['Peito'] = !exerciciosQui['Peito']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosQui['Peito']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Peito",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosQui['Cardio'] = !exerciciosQui['Cardio']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosQui['Cardio']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Cardio",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosQui['Costas'] = !exerciciosQui['Costas']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosQui['Costas']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Costas",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          Container(
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(9.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Sexta-feira',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    TextField(
-                      controller: _controllersexta,
-                      decoration: InputDecoration(
-                        hintText: "Digite os exercícios...",
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+          ExpansionTile(
+            title: Text(
+              'Sexta-feira',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosSex['Perna'] = !exerciciosSex['Perna']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosSex['Perna']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Perna",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosSex['Peito'] = !exerciciosSex['Peito']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosSex['Peito']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Peito",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosSex['Cardio'] = !exerciciosSex['Cardio']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosSex['Cardio']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Cardio",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          exerciciosSex['Costas'] = !exerciciosSex['Costas']!;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            exerciciosSex['Costas']! ? Colors.green : null,
+                      ),
+                      child: Text(
+                        "Costas",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
