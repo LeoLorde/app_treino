@@ -16,7 +16,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text("App de treino pro Maza ficar sheipado"),
+        title: Text("App de treino pro Heitor ficar sheipado"),
         leading: Icon(Icons.fitness_center, size: 45.0),
         actions: [
           IconButton(

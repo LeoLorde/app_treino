@@ -178,9 +178,24 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
                       _controllerquinta.text,
                       _controllersexta.text,
                     );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Treino salvo com sucesso!'),
+                        backgroundColor: Colors.green,
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
                     Navigator.pop(context, t);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Tem que treinar todo dia seu frango!'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
                   }
                 },
+
                 child: Text("Salvar", style: TextStyle(color: Colors.black)),
               ),
               ElevatedButton(
