@@ -11,36 +11,36 @@ class PaginaAddTreino extends StatefulWidget {
 }
 
 class _PaginaAddTreinoState extends State<PaginaAddTreino> {
-  Map<String, bool> exerciciosSeg = {
-    'Perna': false,
-    'Peito': false,
-    'Cardio': false,
-    'Costas': false,
-  };
-  Map<String, bool> exerciciosTer = {
-    'Perna': false,
-    'Peito': false,
-    'Cardio': false,
-    'Costas': false,
-  };
-  Map<String, bool> exerciciosQua = {
-    'Perna': false,
-    'Peito': false,
-    'Cardio': false,
-    'Costas': false,
-  };
-  Map<String, bool> exerciciosQui = {
-    'Perna': false,
-    'Peito': false,
-    'Cardio': false,
-    'Costas': false,
-  };
-  Map<String, bool> exerciciosSex = {
-    'Perna': false,
-    'Peito': false,
-    'Cardio': false,
-    'Costas': false,
-  };
+  final List<String> diasSemana = [
+    'Segunda-feira',
+    'Terça-feira',
+    'Quarta-feira',
+    'Quinta-feira',
+    'Sexta-feira',
+  ];
+
+  final List<String> exerciciosDisponiveis = [
+    'Perna',
+    'Peito',
+    'Cardio',
+    'Costas',
+  ];
+
+  Map<String, Map<String, bool>> treinosSelecionados = {};
+
+  @override
+  void initState() {
+    super.initState();
+    for (var dia in diasSemana) {
+      treinosSelecionados[dia] = {
+        for (var ex in exerciciosDisponiveis) ex: false,
+      };
+    }
+  }
+
+  bool temExercicio(String dia) {
+    return treinosSelecionados[dia]!.values.any((v) => v == true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,448 +49,60 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
         backgroundColor: Colors.blue,
         title: Text("Adicionar Treino"),
       ),
-      body: ListView(
+      body: Column(
         children: [
-          ExpansionTile(
-            title: Text(
-              'Segunda-feira',
-              style: TextStyle(fontWeight: FontWeight.bold),
+          Expanded(
+            child: ListView.builder(
+              itemCount: diasSemana.length,
+              itemBuilder: (context, index) {
+                String dia = diasSemana[index];
+                return ExpansionTile(
+                  title: Text(
+                    dia,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  children: [
+                    Wrap(
+                      spacing: 12,
+                      runSpacing: 8,
+                      alignment: WrapAlignment.center,
+                      children:
+                          exerciciosDisponiveis.map((exercicio) {
+                            bool selecionado =
+                                treinosSelecionados[dia]![exercicio]!;
+                            return ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  treinosSelecionados[dia]![exercicio] =
+                                      !selecionado;
+                                });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    selecionado ? Colors.green : null,
+                              ),
+                              child: Text(
+                                exercicio,
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            );
+                          }).toList(),
+                    ),
+                    SizedBox(height: 8),
+                  ],
+                );
+              },
             ),
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosSeg['Perna'] = !exerciciosSeg['Perna']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosSeg['Perna']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Perna",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosSeg['Peito'] = !exerciciosSeg['Peito']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosSeg['Peito']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Peito",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosSeg['Cardio'] = !exerciciosSeg['Cardio']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosSeg['Cardio']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Cardio",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosSeg['Costas'] = !exerciciosSeg['Costas']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosSeg['Costas']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Costas",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          ExpansionTile(
-            title: Text(
-              'Terça-feira',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosTer['Perna'] = !exerciciosTer['Perna']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosTer['Perna']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Perna",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosTer['Peito'] = !exerciciosTer['Peito']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosTer['Peito']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Peito",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosTer['Cardio'] = !exerciciosTer['Cardio']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosTer['Cardio']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Cardio",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosTer['Costas'] = !exerciciosTer['Costas']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosTer['Costas']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Costas",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          ExpansionTile(
-            title: Text(
-              'Quarta-feira',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosQua['Perna'] = !exerciciosQua['Perna']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosQua['Perna']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Perna",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosQua['Peito'] = !exerciciosQua['Peito']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosQua['Peito']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Peito",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosQua['Cardio'] = !exerciciosQua['Cardio']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosQua['Cardio']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Cardio",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosQua['Costas'] = !exerciciosQua['Costas']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosQua['Costas']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Costas",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          ExpansionTile(
-            title: Text(
-              'Quinta-feira',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosQui['Perna'] = !exerciciosQui['Perna']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosQui['Perna']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Perna",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosQui['Peito'] = !exerciciosQui['Peito']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosQui['Peito']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Peito",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosQui['Cardio'] = !exerciciosQui['Cardio']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosQui['Cardio']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Cardio",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosQui['Costas'] = !exerciciosQui['Costas']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosQui['Costas']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Costas",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          ExpansionTile(
-            title: Text(
-              'Sexta-feira',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosSex['Perna'] = !exerciciosSex['Perna']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosSex['Perna']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Perna",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosSex['Peito'] = !exerciciosSex['Peito']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosSex['Peito']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Peito",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosSex['Cardio'] = !exerciciosSex['Cardio']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosSex['Cardio']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Cardio",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          exerciciosSex['Costas'] = !exerciciosSex['Costas']!;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            exerciciosSex['Costas']! ? Colors.green : null,
-                      ),
-                      child: Text(
-                        "Costas",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
                 onPressed: () {
-                  if (exerciciosQua == false &&
-                      exerciciosTer == false &&
-                      exerciciosQua == false &&
-                      exerciciosQui == false &&
-                      exerciciosSex == false) {
+                  bool todosDiasComTreino = diasSemana.every(
+                    (dia) => temExercicio(dia),
+                  );
+                  if (todosDiasComTreino) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Treino salvo com sucesso!'),
@@ -508,23 +120,24 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
                     );
                   }
                 },
-
                 child: Text("Salvar", style: TextStyle(color: Colors.black)),
               ),
+              SizedBox(width: 16),
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    exerciciosSeg.updateAll((key, value) => false);
-                    exerciciosTer.updateAll((key, value) => false);
-                    exerciciosQua.updateAll((key, value) => false);
-                    exerciciosQui.updateAll((key, value) => false);
-                    exerciciosSex.updateAll((key, value) => false);
+                    for (var dia in diasSemana) {
+                      treinosSelecionados[dia]!.updateAll(
+                        (key, value) => false,
+                      );
+                    }
                   });
                 },
                 child: Text("Limpar", style: TextStyle(color: Colors.black)),
               ),
             ],
           ),
+          SizedBox(height: 16),
         ],
       ),
     );
