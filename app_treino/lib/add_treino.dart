@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'main.dart';
-
-void main() {
-  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: PaginaInicial()));
-}
 
 class PaginaAddTreino extends StatefulWidget {
   @override
@@ -20,10 +17,16 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
   ];
 
   final List<String> exerciciosDisponiveis = [
-    'Perna',
+    'Quadríceps',
+    'Posterior',
     'Peito',
-    'Cardio',
+    'Ombro',
+    'Tríceps',
+    'Bíceps',
     'Costas',
+    'Cardio',
+    'Ante-braço',
+    'Abdómen',
   ];
 
   Map<String, Map<String, bool>> treinosSelecionados = {};
@@ -36,10 +39,51 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
         for (var ex in exerciciosDisponiveis) ex: false,
       };
     }
+    _loadTreinos();
+  }
+
+  Future<void> _loadTreinos() async {
+    final prefs = await SharedPreferences.getInstance();
+    for (var dia in diasSemana) {
+      Map<String, bool> exercicios = {
+        for (var ex in exerciciosDisponiveis)
+          ex: prefs.getBool('$dia-$ex') ?? false,
+      };
+      treinosSelecionados[dia] = exercicios;
+    }
+    setState(() {});
+  }
+
+  Future<void> _salvarTreinos() async {
+    final prefs = await SharedPreferences.getInstance();
+    for (var dia in diasSemana) {
+      for (var ex in exerciciosDisponiveis) {
+        await prefs.setBool('$dia-$ex', treinosSelecionados[dia]![ex]!);
+      }
+    }
   }
 
   bool temExercicio(String dia) {
     return treinosSelecionados[dia]!.values.any((v) => v == true);
+  }
+
+  String _gerarResumoTreinos() {
+    List<String> linhas = [];
+
+    for (var dia in diasSemana) {
+      var ativos =
+          treinosSelecionados[dia]!.entries
+              .where((e) => e.value)
+              .map((e) => e.key)
+              .toList();
+      if (ativos.isNotEmpty) {
+        linhas.add("$dia: ${ativos.join(', ')}");
+      }
+    }
+
+    return linhas.isEmpty
+        ? "Nenhum treino selecionado ainda."
+        : linhas.join("\n");
   }
 
   @override
@@ -69,7 +113,7 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
                       children:
                           exerciciosDisponiveis.map((exercicio) {
                             bool selecionado =
-                                treinosSelecionados[dia]![exercicio]!;
+                                treinosSelecionados[dia]?[exercicio] ?? false;
                             return ElevatedButton(
                               onPressed: () {
                                 setState(() {
@@ -94,15 +138,24 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
               },
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              _gerarResumoTreinos(),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   bool todosDiasComTreino = diasSemana.every(
                     (dia) => temExercicio(dia),
                   );
                   if (todosDiasComTreino) {
+                    await _salvarTreinos();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Treino salvo com sucesso!'),
@@ -110,7 +163,9 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
                         duration: Duration(seconds: 2),
                       ),
                     );
-                    Navigator.pop(context);
+                    setState(() {
+                      Navigator.pop(context);
+                    });
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
