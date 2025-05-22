@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'add_treino.dart';
+import 'dadosTreino.dart';
 
 void main() {
   runApp(MaterialApp(debugShowCheckedModeBanner: false, home: PaginaInicial()));
@@ -28,50 +29,16 @@ class _PaginaInicialState extends State<PaginaInicial> {
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          Center(
-            child: Text(
-              "STATUS",
-              style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+      body: ListView.builder(
+        itemCount: DadosTreino.exerciciosDisponiveis.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+              title: Text(DadosTreino.diasSemana[index]),
+              subtitle: Text(DadosTreino.exerciciosDisponiveis[index]),
             ),
-          ),
-          SizedBox(height: 100),
-          Center(
-            child: Text(
-              "Exercícios segunda:",
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(height: 20),
-          Center(
-            child: Text(
-              "Exercícios terça:",
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(height: 20),
-          Center(
-            child: Text(
-              "Exercícios quarta:",
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(height: 20),
-          Center(
-            child: Text(
-              "Exercícios quinta:",
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(height: 20),
-          Center(
-            child: Text(
-              "Exercícios sexta:",
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
+          );
+        },
       ),
 
       floatingActionButton: FloatingActionButton(
@@ -85,17 +52,5 @@ class _PaginaInicialState extends State<PaginaInicial> {
         child: Icon(Icons.add, color: Colors.black),
       ),
     );
-  }
-}
-
-class PaginaMeuTreino extends StatefulWidget {
-  @override
-  State<PaginaMeuTreino> createState() => _PaginaMeuTreinoState();
-}
-
-class _PaginaMeuTreinoState extends State<PaginaMeuTreino> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("wifonwiof")));
   }
 }
