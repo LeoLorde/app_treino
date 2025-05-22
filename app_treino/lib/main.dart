@@ -35,7 +35,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
           return Card(
             child: ListTile(
               title: Text(DadosTreino.diasSemana[index]),
-              subtitle: Text(DadosTreino.exerciciosDisponiveis[index]),
+              subtitle: Text(DadosTreino.treinosSelecionados[treino]),
             ),
           );
         },
