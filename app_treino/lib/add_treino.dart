@@ -15,48 +15,56 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
   @override
   void initState() {
     super.initState();
-    for (var dia in DadosTreino.diasSemana) {
-      DadosTreino.treinosSelecionados[dia] = {
-        for (var ex in DadosTreino.diasSemana) ex: false,
+    DadosTreino dados = DadosTreino();
+
+    for (String dia in dados.getDias()) {
+      dados.getSelecionados()[dia] = {
+        for (String ex in dados.getExercicios()) ex: false,
       };
     }
     _loadTreinos();
   }
 
   Future<void> _loadTreinos() async {
+    DadosTreino dados = DadosTreino();
+
     final prefs = await SharedPreferences.getInstance();
-    for (var dia in DadosTreino.diasSemana) {
+    for (var dia in dados.getDias()) {
       Map<String, bool> exercicios = {
-        for (var ex in DadosTreino.diasSemana)
+        for (var ex in dados.getExercicios())
           ex: prefs.getBool('$dia-$ex') ?? false,
       };
-      DadosTreino.treinosSelecionados[dia] = exercicios;
+      dados.getSelecionados()[dia] = exercicios;
     }
     setState(() {});
   }
 
   Future<void> _salvarTreinos() async {
+    DadosTreino dados = DadosTreino();
+
     final prefs = await SharedPreferences.getInstance();
-    for (var dia in DadosTreino.diasSemana) {
-      for (var ex in DadosTreino.diasSemana) {
-        await prefs.setBool(
-          '$dia-$ex',
-          DadosTreino.treinosSelecionados[dia]![ex]!,
-        );
+    for (var dia in dados.getDias()) {
+      for (var ex in dados.getExercicios()) {
+        await prefs.setBool('$dia-$ex', dados.getSelecionados()[dia]![ex]!);
       }
     }
   }
 
   bool temExercicio(String dia) {
-    return DadosTreino.treinosSelecionados[dia]!.values.any((v) => v == true);
+    DadosTreino dados = DadosTreino();
+    return dados.getSelecionados()[dia]!.values.any((v) => v == true);
   }
 
   String _gerarResumoTreinos() {
+    DadosTreino dados = DadosTreino();
     List<String> linhas = [];
 
-    for (var dia in DadosTreino.diasSemana) {
+    //O que fazer aqui?
+    for (String dia in dados.getDias()) {
       var ativos =
-          DadosTreino.treinosSelecionados[dia]!.entries
+          dados
+              .getSelecionados()[dia]!
+              .entries
               .where((e) => e.value)
               .map((e) => e.key)
               .toList();
@@ -72,6 +80,7 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
 
   @override
   Widget build(BuildContext context) {
+    DadosTreino dados = DadosTreino();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -92,9 +101,9 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: DadosTreino.diasSemana.length,
+              itemCount: dados.getDias().length,
               itemBuilder: (context, index) {
-                String dia = DadosTreino.diasSemana[index];
+                String dia = dados.getDias()[index];
                 return ExpansionTile(
                   title: Text(
                     dia,
@@ -106,16 +115,14 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
                       runSpacing: 8,
                       alignment: WrapAlignment.center,
                       children:
-                          DadosTreino.exerciciosDisponiveis.map((exercicio) {
+                          dados.getExercicios().map((exercicio) {
                             bool selecionado =
-                                DadosTreino
-                                    .treinosSelecionados[dia]?[exercicio] ??
+                                dados.getSelecionados()[dia]?[exercicio] ??
                                 false;
                             return ElevatedButton(
                               onPressed: () {
                                 setState(() {
-                                  DadosTreino
-                                          .treinosSelecionados[dia]![exercicio] =
+                                  dados.getSelecionados()[dia]![exercicio] =
                                       !selecionado;
                                 });
                               },
@@ -149,7 +156,7 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
             children: [
               ElevatedButton(
                 onPressed: () async {
-                  bool todosDiasComTreino = DadosTreino.diasSemana.every(
+                  bool todosDiasComTreino = dados.getDias().every(
                     (dia) => temExercicio(dia),
                   );
                   if (todosDiasComTreino) {
@@ -179,8 +186,8 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    for (var dia in DadosTreino.diasSemana) {
-                      DadosTreino.treinosSelecionados[dia]!.updateAll(
+                    for (var dia in dados.getDias()) {
+                      dados.getSelecionados()[dia]!.updateAll(
                         (key, value) => false,
                       );
                     }

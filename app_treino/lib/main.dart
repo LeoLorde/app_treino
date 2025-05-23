@@ -13,6 +13,8 @@ class PaginaInicial extends StatefulWidget {
 }
 
 class _PaginaInicialState extends State<PaginaInicial> {
+  DadosTreino dados = DadosTreino();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,11 +35,11 @@ class _PaginaInicialState extends State<PaginaInicial> {
         ],
       ),
       body: ListView.builder(
-        itemCount: DadosTreino.exerciciosDisponiveis.length,
+        itemCount: dados.getExercicios().length,
         itemBuilder: (context, index) {
           return Card(
             child: ListTile(
-              title: Text(DadosTreino.diasSemana[index]),
+              title: Text(dados.getExercicios()[index]),
               subtitle: Text("wlndbwçjd"),
             ),
           );

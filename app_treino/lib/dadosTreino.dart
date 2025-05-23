@@ -1,5 +1,5 @@
 class DadosTreino {
-  static const List<String> diasSemana = [
+  List<String> diasSemana = [
     'Segunda-feira',
     'Terça-feira',
     'Quarta-feira',
@@ -7,7 +7,7 @@ class DadosTreino {
     'Sexta-feira',
   ];
 
-  static const List<String> exerciciosDisponiveis = [
+  List<String> exerciciosDisponiveis = [
     'Quadríceps',
     'Posterior',
     'Peito',
@@ -20,5 +20,17 @@ class DadosTreino {
     'Abdómen',
   ];
 
-  static const Map<String, Map<String, bool>> treinosSelecionados = {};
+  Map<String, Map<String, bool>> treinosSelecionados = {};
+
+  List getExercicios() {
+    return exerciciosDisponiveis;
+  }
+
+  List getDias() {
+    return diasSemana;
+  }
+
+  Map getSelecionados() {
+    return treinosSelecionados;
+  }
 }
