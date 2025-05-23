@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'add_treino.dart';
 import 'dadosTreino.dart';
+import 'cronometro.dart';
 
 void main() {
   runApp(MaterialApp(debugShowCheckedModeBanner: false, home: PaginaInicial()));
@@ -21,11 +22,13 @@ class _PaginaInicialState extends State<PaginaInicial> {
         leading: Icon(Icons.fitness_center, size: 45.0),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: Text(
-              "Meus Treinos",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
-            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Cronometro()),
+              );
+            },
+            icon: Icon(Icons.timer, size: 35),
           ),
         ],
       ),
@@ -35,7 +38,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
           return Card(
             child: ListTile(
               title: Text(DadosTreino.diasSemana[index]),
-              subtitle: Text(DadosTreino.treinosSelecionados[treino]),
+              subtitle: Text("wlndbwçjd"),
             ),
           );
         },
