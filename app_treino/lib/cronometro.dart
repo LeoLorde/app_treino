@@ -17,7 +17,7 @@ class _CronometroState extends State<Cronometro> {
   bool _isStart = false;
   String _stopwatchText = "00:00:00";
   final _stopwatch = new Stopwatch();
-  final _timeout = const Duration(seconds: 1);
+  final _timeout = const Duration(milliseconds: 30);
 
   void _startTimeout() {
     new Timer(_timeout, _handleTimeout);
@@ -57,11 +57,11 @@ class _CronometroState extends State<Cronometro> {
 
   void _setStopwatchText() {
     _stopwatchText =
-        _stopwatch.elapsed.inHours.toString().padLeft(2, '0') +
-        ':' +
         (_stopwatch.elapsed.inMinutes % 60).toString().padLeft(2, '0') +
         ':' +
-        (_stopwatch.elapsed.inSeconds % 60).toString().padLeft(2, '0');
+        (_stopwatch.elapsed.inSeconds % 60).toString().padLeft(2, '0') +
+        ':' +
+        (_stopwatch.elapsed.inMilliseconds % 100).toString().padLeft(2, '0');
   }
 
   @override
@@ -78,7 +78,13 @@ class _CronometroState extends State<Cronometro> {
         Expanded(
           child: FittedBox(
             fit: BoxFit.none,
-            child: Text(_stopwatchText, style: TextStyle(fontSize: 72)),
+            child: Text(
+              _stopwatchText,
+              style: TextStyle(
+                fontSize: 72,
+                fontFeatures: [FontFeature.tabularFigures()],
+              ),
+            ),
           ),
         ),
         Center(
