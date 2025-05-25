@@ -61,7 +61,9 @@ class _CronometroState extends State<Cronometro> {
         ':' +
         (_stopwatch.elapsed.inSeconds % 60).toString().padLeft(2, '0') +
         ':' +
-        (_stopwatch.elapsed.inMilliseconds % 100).toString().padLeft(2, '0');
+        (((_stopwatch.elapsed.inMilliseconds % 1000) % 99) + 1)
+            .toString()
+            .padLeft(2, '0');
   }
 
   @override
