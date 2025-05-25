@@ -1,5 +1,15 @@
 class DadosTreino {
-  List<String> diasSemana = [
+  List<String> nomeTreino = [];
+
+  static final DadosTreino _instancia = DadosTreino._interno();
+
+  factory DadosTreino() {
+    return _instancia;
+  }
+
+  DadosTreino._interno();
+
+  final List<String> diasSemana = [
     'Segunda-feira',
     'Terça-feira',
     'Quarta-feira',
@@ -7,7 +17,7 @@ class DadosTreino {
     'Sexta-feira',
   ];
 
-  List<String> exerciciosDisponiveis = [
+  final List<String> exerciciosDisponiveis = [
     'Quadríceps',
     'Posterior',
     'Peito',
@@ -20,17 +30,25 @@ class DadosTreino {
     'Abdómen',
   ];
 
-  Map<String, Map<String, bool>> treinosSelecionados = {};
+  final Map<String, Map<String, bool>> treinosSelecionados = {};
 
-  List getExercicios() {
+  void adicionarNomeTreino(String nome) {
+    nomeTreino.add(nome);
+  }
+
+  List<String> getExercicios() {
     return exerciciosDisponiveis;
   }
 
-  List getDias() {
+  List<String> getDias() {
     return diasSemana;
   }
 
-  Map getSelecionados() {
+  List<String> getNomesTreinos() {
+    return nomeTreino;
+  }
+
+  Map<String, Map<String, bool>> getSelecionados() {
     return treinosSelecionados;
   }
 }

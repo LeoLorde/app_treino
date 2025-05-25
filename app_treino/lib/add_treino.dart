@@ -23,6 +23,7 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
       };
     }
     _loadTreinos();
+    _loadNomesTreinos();
   }
 
   Future<void> _loadTreinos() async {
@@ -48,6 +49,27 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
         await prefs.setBool('$dia-$ex', dados.getSelecionados()[dia]![ex]!);
       }
     }
+  }
+
+  Future<void> _loadNomesTreinos() async {
+    final prefs = await SharedPreferences.getInstance();
+    DadosTreino dados = DadosTreino();
+
+    dados.nomeTreino = prefs.getStringList('nomes_treinos') ?? [];
+    setState(() {});
+  }
+
+  Future<void> _salvarNomeTreino(String nome) async {
+    final prefs = await SharedPreferences.getInstance();
+    String nome = controllernome.text.trim();
+
+    if (nome.isEmpty) return;
+
+    List<String> nomesTreinos = prefs.getStringList('nomes_treinos') ?? [];
+    nomesTreinos.add(nome);
+    await prefs.setStringList('nomes_treinos', nomesTreinos);
+
+    setState(() {});
   }
 
   bool temExercicio(String dia) {
@@ -156,10 +178,23 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
             children: [
               ElevatedButton(
                 onPressed: () async {
+                  await _loadNomesTreinos();
+                  String nome = controllernome.text.trim();
+                  if (nome.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Dê um nome ao treino seu frango!"),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                    return;
+                  }
                   bool todosDiasComTreino = dados.getDias().every(
                     (dia) => temExercicio(dia),
                   );
                   if (todosDiasComTreino) {
+                    DadosTreino().adicionarNomeTreino(nome);
+                    await _salvarNomeTreino(controllernome.text);
                     await _salvarTreinos();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -169,7 +204,7 @@ class _PaginaAddTreinoState extends State<PaginaAddTreino> {
                       ),
                     );
                     setState(() {
-                      Navigator.pop(context);
+                      Navigator.pop(context, true);
                     });
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
