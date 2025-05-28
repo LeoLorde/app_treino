@@ -28,7 +28,6 @@ class _PaginaInicialState extends State<PaginaInicial> {
     DadosTreino dados = DadosTreino();
     List<String> linhas = [];
 
-    //O que fazer aqui?
     for (String dia in dados.getDias()) {
       var ativos =
           dados
